@@ -37,47 +37,50 @@ const SignUp: React.FC = () => {
   const emailInputRef = useRef<TextInput>(null);
   const passwordInputRef = useRef<TextInput>(null);
 
-  const handleSignUp = useCallback(async (data: SignUpFormData) => {
-    try {
-      // eslint-disable-next-line no-unused-expressions
-      formRef.current?.setErrors({});
-
-      const schema = Yup.object().shape({
-        name: Yup.string().required('Nome obrigatório'),
-        email: Yup.string()
-          .required('E-mail obrigatório')
-          .email('Digite um e-mail válido'),
-        password: Yup.string().min(6, 'No mínimo 6 dígitos'),
-      });
-
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-
-      await api.post('/users', data);
-
-      Alert.alert(
-        'Cadastro realizado!',
-        'Você já pode fazer o seu logon no GoBarber!',
-      );
-
-      navigation.navigate('SignIn');
-    } catch (err) {
-      if (err instanceof Yup.ValidationError) {
-        const errors = getValidationErrors(err);
-
+  const handleSignUp = useCallback(
+    async (data: SignUpFormData) => {
+      try {
         // eslint-disable-next-line no-unused-expressions
-        formRef.current?.setErrors(errors);
+        formRef.current?.setErrors({});
 
-        return;
+        const schema = Yup.object().shape({
+          name: Yup.string().required('Nome obrigatório'),
+          email: Yup.string()
+            .required('E-mail obrigatório')
+            .email('Digite um e-mail válido'),
+          password: Yup.string().min(6, 'No mínimo 6 dígitos'),
+        });
+
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        await api.post('/users', data);
+
+        Alert.alert(
+          'Cadastro realizado!',
+          'Você já pode fazer o seu logon no GoBarber!',
+        );
+
+        navigation.navigate('SignIn');
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
+
+          // eslint-disable-next-line no-unused-expressions
+          formRef.current?.setErrors(errors);
+
+          return;
+        }
+
+        Alert.alert(
+          'Erro no cadastro',
+          'Ocorreu um erro ao fazer o cadastro, tente novamente.',
+        );
       }
-
-      Alert.alert(
-        'Erro no cadastro',
-        'Ocorreu um erro ao fazer o cadastro, tente novamente.',
-      );
-    }
-  }, []);
+    },
+    [navigation],
+  );
 
   return (
     <>
