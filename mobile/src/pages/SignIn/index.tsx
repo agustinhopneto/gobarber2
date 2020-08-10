@@ -52,7 +52,12 @@ const SignIn: React.FC = () => {
               Entrar
             </Button>
 
-            <ForgotPassword activeOpacity={0.6} onPress={() => {}}>
+            <ForgotPassword
+              activeOpacity={0.6}
+              onPress={() => {
+                console.log('foi');
+              }}
+            >
               <ForgotPasswordText>Esqueci minha senha</ForgotPasswordText>
             </ForgotPassword>
           </Container>
