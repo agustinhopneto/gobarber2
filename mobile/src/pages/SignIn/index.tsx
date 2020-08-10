@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useCallback, useRef } from 'react';
 import {
   Image,
   View,
   ScrollView,
   KeyboardAvoidingView,
   Platform,
+  TextInput,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
+import { Form } from '@unform/mobile';
+import { FormHandles } from '@unform/core';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -24,7 +27,13 @@ import {
 } from './styles';
 
 const SignIn: React.FC = () => {
+  const formRef = useRef<FormHandles>(null);
+  const passwordInputRef = useRef<TextInput>(null);
   const navigation = useNavigation();
+
+  const handleSignIn = useCallback((data: Record<string, unknown>) => {
+    console.log(data);
+  }, []);
 
   return (
     <>
@@ -44,12 +53,39 @@ const SignIn: React.FC = () => {
               <Title>Faça seu logon</Title>
             </View>
 
-            <Input name="email" icon="mail" placeholder="Email" />
-            <Input name="password" icon="lock" placeholder="Senha" />
+            <Form onSubmit={handleSignIn} ref={formRef}>
+              <Input
+                autoCorrect={false}
+                autoCapitalize="none"
+                keyboardType="email-address"
+                name="email"
+                icon="mail"
+                placeholder="Email"
+                returnKeyType="next"
+                onSubmitEditing={() => {
+                  // eslint-disable-next-line no-unused-expressions
+                  passwordInputRef.current?.focus();
+                }}
+              />
+
+              <Input
+                ref={passwordInputRef}
+                secureTextEntry
+                name="password"
+                icon="lock"
+                placeholder="Senha"
+                returnKeyType="send"
+                onSubmitEditing={() => {
+                  // eslint-disable-next-line no-unused-expressions
+                  formRef.current?.submitForm();
+                }}
+              />
+            </Form>
 
             <Button
               onPress={() => {
-                console.log('foi');
+                // eslint-disable-next-line no-unused-expressions
+                formRef.current?.submitForm();
               }}
             >
               Entrar
