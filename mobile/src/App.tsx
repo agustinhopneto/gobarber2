@@ -1,12 +1,25 @@
 import 'react-native-gesture-handler';
 
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { View, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import changeNavigationBarColor from 'react-native-navigation-bar-color';
 
 import Routes from './routes';
 
 const App: React.FC = () => {
+  const changeBarColor = useCallback(async () => {
+    try {
+      await changeNavigationBarColor('#312e38', false, true);
+    } catch (err) {
+      //
+    }
+  }, []);
+
+  useEffect(() => {
+    changeBarColor();
+  }, [changeBarColor]);
+
   return (
     <NavigationContainer>
       <StatusBar
