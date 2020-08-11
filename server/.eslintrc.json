@@ -27,9 +27,10 @@
     "class-methods-use-this": "off",
     "@typescript-eslint/camelcase": "off",
     "@typescript-eslint/no-unused-vars": ["error", {
-        "argsIgnorePattern": "_"
-      }
-    ],
+      "argsIgnorePattern": "_"
+    }],
+    "@typescript-eslint/interface-name-prefix": ["error", {"prefixWithI": "always"}],
+    "no-useless-constructor": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
