@@ -12,7 +12,7 @@ describe('CreateUser', () => {
 
     const createUser = new CreateUserService(
       fakeUsersRepository,
-      fakeHashProvider
+      fakeHashProvider,
     );
 
     const user = await createUser.execute({
@@ -30,7 +30,7 @@ describe('CreateUser', () => {
 
     const createUser = new CreateUserService(
       fakeUsersRepository,
-      fakeHashProvider
+      fakeHashProvider,
     );
 
     await createUser.execute({
