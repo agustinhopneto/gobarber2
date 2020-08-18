@@ -1,0 +1,41 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500&display=swap');
+
+  .message-content {
+    padding: 140px;
+    background-color: #312E38;
+
+    font-family: 'Roboto Slab', serif;
+    max-width: 600px;
+    font-size: 18px;
+    line-height: 21px;
+    color: #F4EDE8;
+  }
+
+  .message-content img {
+    max-width: 350px;
+    margin-bottom: 64px;
+  }
+
+  .message-content p a {
+    text-decoration: none;
+    color: #FF9000;
+  }
+</style>
+
+<div class="message-content">
+  <p style="text-align: center;">
+    <img src="http://localhost:3333/files/logo.png" alt="GoBarber">
+  </p>
+  <p>Olá, {{name}}</p>
+  <p>Parece que uma troca de senha para a sua conta foi solicitada...</p>
+  <p>Se foi você, então clique no link abaixo para escolher uma nova senha:</p>
+  <p>
+    <a href="{{link}}">Resetar minha senha</a>
+  </p>
+  <p>Se não foi você, então descarte esse email!</p>
+  <p>
+    Obrigado(a)!<br />
+    <strong>Equipe GoBarber</strong>
+  </p>
+</div>
