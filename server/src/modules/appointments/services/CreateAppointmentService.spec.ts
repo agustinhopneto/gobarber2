@@ -1,10 +1,12 @@
 import AppError from '@shared/errors/AppError';
 
 import FakeNotificationsRepository from '@modules/notifications/repositories/fakes/FakeNotificationsRepository';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakeAppointmentsRepository from '../repositories/fakes/FakeAppointmentsRepository';
 import CreateAppointmentService from './CreateAppointmentService';
 
 let fakeAppointmentsRepository: FakeAppointmentsRepository;
+let fakeCacheProvider: FakeCacheProvider;
 let fakeNotificationsRepository: FakeNotificationsRepository;
 let createAppointmentService: CreateAppointmentService;
 
@@ -12,9 +14,11 @@ describe('CreateAppointment', () => {
   beforeEach(() => {
     fakeAppointmentsRepository = new FakeAppointmentsRepository();
     fakeNotificationsRepository = new FakeNotificationsRepository();
+    fakeCacheProvider = new FakeCacheProvider();
     createAppointmentService = new CreateAppointmentService(
       fakeAppointmentsRepository,
       fakeNotificationsRepository,
+      fakeCacheProvider,
     );
   });
 
@@ -84,7 +88,7 @@ describe('CreateAppointment', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('should not be able to create an appointment before 8pm and after 5pm', async () => {
+  it('should not be able to create an appointment before 8am and after 5pm', async () => {
     jest.spyOn(Date, 'now').mockImplementationOnce(() => {
       return new Date(2020, 7, 10, 12, 0, 0).getTime();
     });
