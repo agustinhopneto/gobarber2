@@ -159,7 +159,9 @@ const Dashboard: React.FC = () => {
               src={
                 user.avatar_url
                   ? user.avatar_url
-                  : 'https://api.adorable.io/avatars/3'
+                  : `https://avatars.dicebear.com/4.5/api/avataaars/${Math.floor(
+                      Math.random() * 10000,
+                    )}.svg`
               }
               alt={user.name}
             />
